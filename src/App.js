@@ -104,7 +104,7 @@ async function getData(actionPath, action) {
   authResult = "";
   setIsAlertVisible(false);
   const apiName = 'petstoreapi';
-  const path = "";
+  const path = actionPath;
   const myInit = {
     headers:{
       Authorization: await getToken("ID")
