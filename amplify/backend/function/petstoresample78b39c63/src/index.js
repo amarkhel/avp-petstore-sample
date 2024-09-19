@@ -39,12 +39,15 @@ exports.handler = async (event) => {
         //add user (principal information) to entities list
         var userEntity =  {
             "identifier": {
-              "entityType": "MyApplication::User",
+              "entityType": "ResearchRights::User",
               "entityId": payload["cognito:username"]
             },
             "attributes": {
-              "employmentStoreCode" : {
-                "string":payload["custom:employmentStoreCode"] == null ? "":payload["custom:employmentStoreCode"] 
+              "firm" : {
+                "string":payload["custom:firm"] == null ? "":payload["custom:firm"] 
+              },
+             "tier" : {
+                "string":payload["custom:tier"] == null ? "":payload["custom:tier"] 
               }
             },
             "parents": []
@@ -54,14 +57,14 @@ exports.handler = async (event) => {
           entities.entityList.push(
             {
               "identifier": {
-                "entityType": "MyApplication::Group",
+                "entityType": "ResearchRights::Group",
                 "entityId": group
               }
             }
           );
           userEntity.parents.push (
             {
-                "entityType": "MyApplication::Group",
+                "entityType": "ResearchRights::Group",
                 "entityId": group
             }
           );
@@ -78,8 +81,8 @@ exports.handler = async (event) => {
        
         let authQuery = {
             policyStoreId, 
-            principal: {"entityType": "MyApplication::User", "entityId": payload["cognito:username"]},
-            action: {"actionType": "MyApplication::Action", "actionId": actionMap[event.httpMethod + event.resource]},
+            principal: {"entityType": "ResearchRights::User", "entityId": payload["cognito:username"]},
+            action: {"actionType": "ResearchRights::Action", "actionId": "ViewResearch"},
             resource: buildResource(actionMap[event.httpMethod + event.resource], event.pathParameters), 
             entities
         };
@@ -102,69 +105,21 @@ exports.handler = async (event) => {
 };
 
 function addResourceEntities(entities, action, pathParams) {
-  
-  
-  if( ["UpdatePet", "DeletePet"].contains(action) ){ //pet related action
-  
-    entities.entityList.push ({
-      "identifier": {
-        "entityType": "MyApplication::Pet", 
-        "entityId": pathParams.petId
-      },
-      "attributes": {
-            "storeId": {
-              "string": pathParams.storeId
-            }
-      }
-    });
-  } else if( ["GetOrder", "CancelOrder"].contains(action) ){ //order related action
+  if( ["ViewResearch"].contains(action) ){ //order related action
     entities.entityList.push ({
         "identifier": {
-            "entityType": "MyApplication::Order", 
-            "entityId": pathParams.orderNumber
+            "entityType": "ResearchRights::ViewResearch"
         },
         "attributes": {
-            "storeId": {
-              "string": pathParams.storeId
-            },
-            "owner" : { // Hardcoding the owner to abhi, this is for demonestration purposes
-                "entityIdentifier": {
-                       "entityType": "MyApplication::User",
-                       "entityId": "abhi"
-                }                     
-            }
       }
     });
-  } else //application related action
-    entities.entityList.push ({ 
-      "identifier": {
-        "entityType": "MyApplication::Application",
-        "entityId": "PetStore"
-      },
-      "attributes": {
-            "storeId": {
-              "string": pathParams.storeId
-            }
-      }
-    });  
+  }  
 }
 //---------helper function to get resource mapping for an action
 function buildResource(action, pathParams){
-  
-  if( ["UpdatePet", "DeletePet"].contains(action) ){ //pet related action
     return {
-      "entityType": "MyApplication::Pet", 
-      "entityId": pathParams.petId
-      
+        "entityType": "ResearchRights::ViewResearch"
     };
-  }
-  else if( ["GetOrder", "CancelOrder"].contains(action) ){ //order related action
-    return {
-        "entityType": "MyApplication::Order", 
-        "entityId": pathParams.orderNumber
-    };
-  } else //application related action
-    return {"entityType": "MyApplication::Application", "entityId": "PetStore"};
 }
 
 //---------helper function to build HTTP response
@@ -189,12 +144,5 @@ Array.prototype.contains = function(element){
 
 //---------Map http method and resource path to an action defined in AuthZ model
 const actionMap = {
-  "GET/store/{storeId}/pets": "SearchPets",
-  "POST/store/{storeId}/pet/create": "AddPet",
-  "POST/store/{storeId}/order/create": "PlaceOrder",
-  "POST/store/{storeId}/pet/update/{petId}": "UpdatePet",
-  "GET/store/{storeId}/order/get/{orderNumber}": "GetOrder",
-  "POST/store/{storeId}/order/cancel/{orderNumber}": "CancelOrder",
-  "GET/store/{storeId}/orders": "ListOrders",
-  "GET/store/{storeId}/inventory": "GetStoreInventory"
+  "GET/viewResearch": "ViewResearch"
 }
