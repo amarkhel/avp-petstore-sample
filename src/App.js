@@ -63,7 +63,6 @@ function App({ signOut, user }) {
                   <View textAlign="left">
                        
                       <div>
-                        <ExpanderItem title="Customer role type actions" value="line-1">
                           <Text textAlign="left" variation="info">Customers can search for research. </Text><br/>
                           <Button onClick={() => getData('/ViewResearch', 'GET')}>View Research</Button>
                       </div>
