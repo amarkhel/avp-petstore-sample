@@ -105,15 +105,13 @@ exports.handler = async (event) => {
 };
 
 function addResourceEntities(entities, action, pathParams) {
-  if( ["ViewResearch"].contains(action) ){ //order related action
-    entities.entityList.push ({
+  entities.entityList.push ({
         "identifier": {
             "entityType": "ResearchRights::ViewResearch"
         },
         "attributes": {
       }
-    });
-  }  
+    }); 
 }
 //---------helper function to get resource mapping for an action
 function buildResource(action, pathParams){
