@@ -1,8 +1,8 @@
 {
   "version": 1,
   "paths": {
-    "/store/{storeId}/order/get/{orderNumber}": {
-      "name": "/store/{storeId}/order/get/{orderNumber}",
+    "/ViewResearch": {
+      "name": "/ViewResearch",
       "lambdaFunction": "petstoresample78b39c63",
       "permissions": {
         "setting": "open"
