@@ -144,5 +144,5 @@ Array.prototype.contains = function(element){
 
 //---------Map http method and resource path to an action defined in AuthZ model
 const actionMap = {
-  "GET/viewResearch": "ViewResearch"
+  "GET/ViewResearch": "ViewResearch"
 }
