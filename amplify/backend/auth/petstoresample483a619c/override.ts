@@ -21,7 +21,6 @@ export function override(resources: AmplifyAuthCognitoStackTemplate, amplifyProj
         developerOnlyAttribute: false,
         mutable: true,
         name: 'employmentStoreCode',
-        name: 'firm',
         required: false,
     }
             
