@@ -63,8 +63,7 @@ function App({ signOut, user }) {
               <TabItem title="Action simulation">
                 <Grid templateColumns="1fr 1fr">
                   <View textAlign="left">
-                  
-                    <TextField padding="10px" onChange={e => storeId = e.target.value} placeholder="Research name" label="Enter Research Identifier" /><br/>
+              
                         
                     <Expander type="multiple" defaultValue={['line-1','line-2','line-3']}>
   
@@ -75,7 +74,7 @@ function App({ signOut, user }) {
                       <div>
                         <ExpanderItem title="Customer role type actions" value="line-1">
                           <Text textAlign="left" variation="info">Customers can search for research. </Text><br/>
-                          <Button onClick={() => getData('/order/get/order-1', 'GET')}>View Research</Button>
+                          <Button onClick={() => getData('/ViewResearch', 'GET')}>View Research</Button>
                         </ExpanderItem>
                       </div>
                       ): null}
@@ -116,7 +115,7 @@ async function getData(actionPath, action) {
   authResult = "";
   setIsAlertVisible(false);
   const apiName = 'petstoreapi';
-  const path = "/store/" + storeId + actionPath;
+  const path = "";
   const myInit = {
     headers:{
       Authorization: await getToken("ID")
