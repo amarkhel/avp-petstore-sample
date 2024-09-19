@@ -29,11 +29,9 @@ function App({ signOut, user }) {
         <Flex direction="row" justifyContent="space-around" alignItems="center">
           <Flex>
               <Link>Home</Link>
-              <Link>About</Link>
-              <Link>Shop</Link>
           </Flex>
           <Heading level={4} textAlign="center">
-            Welcome to PetStore
+            Welcome to Research Rights
           </Heading>
           <Heading level={6} textAlign="center">
             Hello {user.username}
@@ -66,47 +64,30 @@ function App({ signOut, user }) {
                 <Grid templateColumns="1fr 1fr">
                   <View textAlign="left">
                   
-                    <TextField padding="10px" onChange={e => storeId = e.target.value} placeholder="PetStore Id eg. petstore-london" label="Enter PetStore Identifier" /><br/>
+                    <TextField padding="10px" onChange={e => storeId = e.target.value} placeholder="Research name" label="Enter Research Identifier" /><br/>
                         
                     <Expander type="multiple" defaultValue={['line-1','line-2','line-3']}>
   
                       <Divider orientation="horizontal" />
                       
                        
-                      { roles.includes('Customer') ? (
+                      { roles.includes('Bloomberg') ? (
                       <div>
                         <ExpanderItem title="Customer role type actions" value="line-1">
-                          <Text textAlign="left" variation="info">Customers can search for pets, order pets and cancel orders. </Text><br/>
-                          <Button onClick={() => getData('/pets', 'GET')}>Search Pets</Button>
-                          <Button onClick={() => getData('/order/create', 'POST')}>Place Order</Button>
-                          <Button onClick={() => getData('/order/get/order-1', 'GET')}>View Order</Button>
+                          <Text textAlign="left" variation="info">Customers can search for research. </Text><br/>
+                          <Button onClick={() => getData('/order/get/order-1', 'GET')}>View Research</Button>
                         </ExpanderItem>
                       </div>
                       ): null}
                       
                      
-                      {roles.includes('Pet-Groomer-Role') ? (
+                      {roles.includes('S&P') ? (
                       <div>
-                        <TextField onChange={e => storeId = e.target.value} placeholder="PetStore Id eg. petstore-london" label="Enter PetStore Identifier" /><br/>
-                        <Divider orientation="horizontal" />
-                        <ExpanderItem title="Pet Groomer role actions" value="line-2">
-                          <Text textAlign="left" variation="info">Pet Groomers can add pets, edit pet details and  get order details  .</Text><br/>
-                          <Button onClick={() => getData('/pet/create', 'POST')}>Add Pet</Button>
-                          <TextField onChange={e => petId = e.target.value} placeholder="Pet ID, 123 for example" label="Edit pet details" outerStartComponent={<Button onClick={(e) => getData('/pet/update/'+petId, 'POST')}>Submit</Button>}/><br/>
-                          <TextField onChange={e => orderNumber = e.target.value}  placeholder="Order Number, 123 for example" label="Get order details" outerStartComponent={<Button onClick={() => getData('/order/get/'+orderNumber, 'GET')}>Submit</Button>}/><br/>
-                      </ExpanderItem>
+                        <ExpanderItem title="Customer role type actions" value="line-1">
+                          <Text textAlign="left" variation="info">S&P firms not allowed to search</Text><br/>
+                        </ExpanderItem>
                       </div>
                       ) : null}
-                      
-                      {roles.includes('Store-Owner-Role') ? (
-                      <div>
-                        <Divider orientation="horizontal" />
-                          <ExpanderItem title="Store Owner actions" value="line-3">
-                            <Text textAlign="left" variation="info">Store Manager can get all orders and inventory of pets.</Text><br/>
-                            <Button onClick={() => getData('/orders', 'GET')}>List All Orders</Button>
-                          </ExpanderItem>
-                      </div>
-                      ): null}
                     </Expander>
                   </View>
                   
