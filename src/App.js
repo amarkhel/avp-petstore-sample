@@ -70,23 +70,12 @@ function App({ signOut, user }) {
                       <Divider orientation="horizontal" />
                       
                        
-                      { roles.includes('Bloomberg') ? (
                       <div>
                         <ExpanderItem title="Customer role type actions" value="line-1">
                           <Text textAlign="left" variation="info">Customers can search for research. </Text><br/>
                           <Button onClick={() => getData('/ViewResearch', 'GET')}>View Research</Button>
                         </ExpanderItem>
                       </div>
-                      ): null}
-                      
-                     
-                      {roles.includes('S&P') ? (
-                      <div>
-                        <ExpanderItem title="Customer role type actions" value="line-1">
-                          <Text textAlign="left" variation="info">S&P firms not allowed to search</Text><br/>
-                        </ExpanderItem>
-                      </div>
-                      ) : null}
                     </Expander>
                   </View>
                   
@@ -144,29 +133,6 @@ async function getData(actionPath, action) {
       
       authResult = JSON.stringify(err.response.data, null, 2);
      
-    });
-  }
-
-  else if(action == 'POST'){
-    API.post(apiName, path, myInit).then(result => {  
-      
-      alertHeading = "Success!";
-      alertVariation = "success";
-      alertMessage = result.message;
-      setIsAlertVisible(true);
-      
-      authResult = JSON.stringify(result, null, 2);
-      
-      return result.body;  
-    }).catch(err => {  
-      
-      alertHeading = err.response.statusText;
-      alertVariation = "error";
-      alertMessage = err.response.data.message;
-      setIsAlertVisible(true);
-      
-      authResult = JSON.stringify(err.response.data, null, 2);
-      
     });
   }
 }
