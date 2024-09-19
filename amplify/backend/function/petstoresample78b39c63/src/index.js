@@ -107,7 +107,8 @@ exports.handler = async (event) => {
 function addResourceEntities(entities, action, pathParams) {
   entities.entityList.push ({
         "identifier": {
-            "entityType": "ResearchRights::ViewResearch"
+            "entityType": "ResearchRights::Research",
+          "entityId" : "1"
         },
         "attributes": {
       }
@@ -116,7 +117,8 @@ function addResourceEntities(entities, action, pathParams) {
 //---------helper function to get resource mapping for an action
 function buildResource(action, pathParams){
     return {
-        "entityType": "ResearchRights::ViewResearch"
+        "entityType": "ResearchRights::Research",
+                "entityId" : "1"
     };
 }
 
