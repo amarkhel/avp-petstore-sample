@@ -64,7 +64,7 @@ function App({ signOut, user }) {
                        
                       <div>
                           <Text textAlign="left" variation="info">Customers can search for research. </Text><br/>
-                          <Button onClick={() => getData('/ViewResearch', 'GET')}>View Research!</Button>
+                          <Button onClick={() => getData('/ViewResearch', 'GET')}>View Research</Button>
                       </div>
                   </View>
                   
